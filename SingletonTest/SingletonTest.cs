@@ -23,6 +23,13 @@ namespace Core.Extensions
         }
     }
 
+    /// <summary>
+    /// public classes inheriting AClass, and an implicit public constructor
+    /// </summary>
+    public class ParentOfAClass : AClass { }
+
+    public class ParentOfAnother : ParentOfAClass { }
+
     [TestClass]
     public class SingletonTest
     {
@@ -45,9 +52,9 @@ namespace Core.Extensions
 
         [TestMethod]
         [Description("Test that instantiation without a proper parent class throws an exception (debug only)")]
-        public void TestNoInheritance()
+        public void TestNoInheritanceException()
         {
-            // special case is allowed
+            // special case 'object' is allowed
             Singleton<object> singleton;
             using (singleton = new Singleton<object>())
             {
@@ -55,19 +62,61 @@ namespace Core.Extensions
                 Assert.IsInstanceOfType(singleton, typeof(object));
             }
 
-            // special case is allowed
+            // specific case is forbidden
             Singleton<AClass> aSingleton;
             try
             {
                 using (aSingleton = new Singleton<AClass>())
                 {
-                    Assert.Fail("Eception");
+                    Assert.Fail("Exception");
 
                     Assert.IsNotNull(aSingleton);
                     Assert.IsInstanceOfType(aSingleton, typeof(Singleton<AClass>));
                     Assert.IsNotInstanceOfType(aSingleton, typeof(AClass));
                 }
                 Assert.IsFalse(Object.ReferenceEquals(aSingleton, AClass.CurrentInstance));
+            }
+            catch (SingletonException exc)
+            {
+                Assert.IsInstanceOfType(exc, typeof(SingletonException), "Cause:" + SingletonCause.NoInheritance);
+                Assert.AreEqual(exc.Cause, SingletonCause.NoInheritance);
+            }
+        }
+
+        [TestMethod]
+        [Description("Test that instantiation without a proper parent class throws an exception (debug only)")]
+        public void TestClassInheritance()
+        {
+            ParentOfAClass singleton;
+            using (singleton = new ParentOfAClass())
+            {
+                Assert.IsNotNull(singleton);
+                Assert.IsInstanceOfType(singleton, typeof(ParentOfAClass));
+                Assert.IsFalse(singleton.GetType().IsGenericType, singleton.GetType().Name + " is a non-generic class");
+                Assert.IsTrue(Object.ReferenceEquals(singleton, ParentOfAClass.CurrentInstance));
+            }
+
+            ParentOfAnother anotherSingleton;
+            using (anotherSingleton = new ParentOfAnother())
+            {
+                Assert.IsNotNull(anotherSingleton);
+                Assert.IsInstanceOfType(anotherSingleton, typeof(ParentOfAnother));
+                Assert.IsFalse(anotherSingleton.GetType().IsGenericType, anotherSingleton.GetType().Name + " is a non-generic class");
+                Assert.IsTrue(Object.ReferenceEquals(anotherSingleton, ParentOfAnother.CurrentInstance));
+            }
+
+            Singleton<ParentOfAnother> aSingleton;
+            try
+            {
+                using (aSingleton = new Singleton<ParentOfAnother>())
+                {
+                    Assert.Fail("Exception");
+
+                    Assert.IsNotNull(aSingleton);
+                    Assert.IsInstanceOfType(aSingleton, typeof(Singleton<ParentOfAnother>));
+                    Assert.IsNotInstanceOfType(aSingleton, typeof(ParentOfAnother));
+                }
+                Assert.IsFalse(Object.ReferenceEquals(aSingleton, ParentOfAnother.CurrentInstance));
             }
             catch (SingletonException exc)
             {
