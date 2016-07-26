@@ -8,7 +8,16 @@
 **author**: Lo Sauer, 2016; https://losauer.blogspot.com   
 **website**: https://github.com/lsauer/csharp-singleton   
 **license**: MIT license http://lsauer.mit-license.org/   
-**description**: ensure consistent singleton implementation in your projects through a single, tested implementation   
+**description**: A generic, portable, tested, documented and easy to use Singleton pattern implementation, to ensure that only one instance can be invoked
+
+## Download
+
+Full Version | NuGet | NuGet Install
+------------ | :-------------: | :-------------:
+CSharp.Portable-Singleton | <a href="https://www.nuget.org/packages/CSharp.Portable-Singleton/" target="_blank"><img src="https://googledrive.com/host/0ByqWUM5YoR35ZWhvaXFrZ2pRcmM/nuget_version_counter_gh_singleton.svg"/></a> | ```PM> Install-Package CSharp.Portable-Singleton```
+
+Stay updated:  <a href="https://twitter.com/sauerlo/" target="_blank"><img src="https://googledrive.com/host/0ByqWUM5YoR35NGZiSEs4SXduTGM/gh_twitter_like.png" alt="Twitter Follow" height="18" /></a>
+<a href="https://www.facebook.com/lorenz.lo.sauer/" target="_blank"><img src="https://googledrive.com/host/0ByqWUM5YoR35NGZiSEs4SXduTGM/gh_facebook_like.png" alt="Facebook Like" height="18" /></a>
 
 
 ###Example
