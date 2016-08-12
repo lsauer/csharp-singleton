@@ -50,11 +50,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestClass\AClassNested.cs" />
+    <Compile Include="TestClass\ExplicitCreateClass.cs" />
+    <Compile Include="TestClass\IndispensibleClass.cs" />
+    <Compile Include="TestClass\AClass.cs" />
+    <Compile Include="TestClass\DClass.cs" />
+    <Compile Include="TestClass\BClass .cs" />
+    <Compile Include="SingletonManagerTest.cs" />
     <Compile Include="SingletonTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Singleton\Singleton.csproj">
+    <ProjectReference Include="..\Singleton\Core.Singleton.csproj">
       <Project>{657b780b-8852-48a2-a6d4-7d273b93ce68}</Project>
       <Name>Singleton</Name>
     </ProjectReference>
