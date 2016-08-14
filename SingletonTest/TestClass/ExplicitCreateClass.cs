@@ -16,7 +16,7 @@ namespace Core.Singleton.Test
     {
         public ExplicitCreateClass()
         {
-            // throw new SingletonException(SingletonCause.InstanceRequiresParameters);
+            throw new SingletonException(SingletonCause.InstanceRequiresParameters);
         }
 
         public ExplicitCreateClass(Type whoisType, [CallerMemberName] string sayhello = null)
