@@ -284,7 +284,9 @@ namespace Core.Singleton
         /// </example>
         public void Dispose()
         {
-            this.Pool.Select(singleton => singleton.Key.GetTypeInfo().GetSingletonMethod("Reset"));
+            // ToArray() is required to execute the deferred query
+            this.Pool.Select(singleton => singleton.Key?.GetTypeInfo().GetSingletonMethod("Reset")).ToArray();
+
             if(this.Disposed == false)
             {
                 this.Dispose(true);
@@ -314,7 +316,7 @@ namespace Core.Singleton
             {
                 if (typeof(TClass) != this.Pool[type.AsType()].GetType())
                 {
-                    // in case of a instance-type mismatch the generic-typed method must not be used
+                    // in case of a instance-type mismatch the generic-typed method must not be used, for code-readability
                     throw new SingletonException(SingletonCause.InstanceExistsMismatch);
                 }
 
@@ -425,24 +427,21 @@ namespace Core.Singleton
         /// <seealso cref="Dispose()"/>
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.Disposed)
+            if (!this.Disposed && disposing)
             {
-                if (disposing)
+                foreach (var singleton in this.Pool)
                 {
-                    foreach (var singleton in this.Pool)
+                    if (singleton.Value != null)
                     {
-                        if (singleton.Value != null)
+                        try
                         {
-                            try
+                            singleton.Value.Dispose();
+                        }
+                        catch (SingletonException exc)
+                        {
+                            if (exc.Cause != SingletonCause.NoDispose)
                             {
-                                singleton.Value.Dispose();
-                            }
-                            catch (SingletonException exc)
-                            {
-                                if (exc.Cause != SingletonCause.NoDispose)
-                                {
-                                    throw exc;
-                                }
+                                throw exc;
                             }
                         }
                     }
