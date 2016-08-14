@@ -11,6 +11,7 @@ namespace Core.Singleton
     using System.Diagnostics;
     using System.Reflection;
     using System.Runtime.CompilerServices;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// A generic Singleton class. Use as outlined in the following example:
@@ -104,7 +105,7 @@ namespace Core.Singleton
 
             if (currentType != null && typeof(TClass) != typeof(object))
             {
-                if (currentType.IsConstructedGenericType == true && currentType.GetTypeInfo().IsSubclassOf(typeof(Singleton<TClass>)) == false)
+                if (currentType.GetTypeInfo().IsGenericType == true && currentType.GetTypeInfo().IsSubclassOf(typeof(Singleton<TClass>)) == false)
                 {
                     this.exceptionCase = true;
 
@@ -328,6 +329,7 @@ namespace Core.Singleton
         ///    Console.WriteLine($"{typeof(ParentOfAClass).GetType().FullName} is Initialized: {instance.Initialized}");
         /// ```
         /// </example>
+        [XmlIgnore]
         public ISingletonManager Manager
         {
             get
