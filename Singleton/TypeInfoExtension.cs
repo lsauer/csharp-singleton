@@ -29,7 +29,7 @@ namespace Core.Singleton
             parameterTypes = parameterTypes ?? new Type[] { };
             Type constructed = typeof(Singleton<>).MakeGenericType(new[] { type.AsType() });
             var runtimeMethod = constructed.GetRuntimeMethods().Where(c => c.Name.StartsWith(method)).First();
-            var potentials = from ele in constructed.GetRuntimeMethods()
+            var methodInfos = from ele in constructed.GetRuntimeMethods()
                              where ele.Name.Equals(method)
                              let param = ele.GetParameters()
                              where
@@ -38,7 +38,7 @@ namespace Core.Singleton
                              select ele;
 
             // Maybe check if we have more than 1? Or not?
-            runtimeMethod = potentials.FirstOrDefault();
+            runtimeMethod = methodInfos.FirstOrDefault();
 
             // var runtimeMethod = constructed.GetRuntimeMethod(method, (new Type[] { constructed }).Concat(parameterTypes ?? new Type[] {}).ToArray());
             if (runtimeMethod != null)
@@ -138,7 +138,7 @@ namespace Core.Singleton
                 var runtimeProperty = constructed.GetRuntimeProperty(property.ToString());
                 if (runtimeProperty != null)
                 {
-                    runtimeProperty.SetValue(constructed, true);
+                    runtimeProperty.SetValue(constructed, value);
                 }
 
                 baseType = baseType.BaseType.GetTypeInfo();
