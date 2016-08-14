@@ -31,9 +31,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LICENSE = LICENSE
 		project--icon.gif = project--icon.gif
 		README.md = README.md
+		README_Example_Advanced.md = README_Example_Advanced.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example7", "Examples\Example7\Example7.csproj", "{677AA8BB-B773-4027-AB4E-3ED67C4B5855}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example8", "Examples\Example8\Example8.csproj", "{04CB2FDF-2D3E-4694-87C0-040F6DEC5D3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +84,10 @@ Global
 		{677AA8BB-B773-4027-AB4E-3ED67C4B5855}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{677AA8BB-B773-4027-AB4E-3ED67C4B5855}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{677AA8BB-B773-4027-AB4E-3ED67C4B5855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04CB2FDF-2D3E-4694-87C0-040F6DEC5D3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04CB2FDF-2D3E-4694-87C0-040F6DEC5D3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04CB2FDF-2D3E-4694-87C0-040F6DEC5D3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04CB2FDF-2D3E-4694-87C0-040F6DEC5D3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,5 +100,6 @@ Global
 		{3EB5CF0F-1592-42B5-B89A-730574C6C97E} = {6DB40460-A960-4AB7-A36F-170EBED4A9EF}
 		{E3C69A7B-0D21-42DA-9CEB-333FC0750F49} = {6DB40460-A960-4AB7-A36F-170EBED4A9EF}
 		{677AA8BB-B773-4027-AB4E-3ED67C4B5855} = {6DB40460-A960-4AB7-A36F-170EBED4A9EF}
+		{04CB2FDF-2D3E-4694-87C0-040F6DEC5D3F} = {6DB40460-A960-4AB7-A36F-170EBED4A9EF}
 	EndGlobalSection
 EndGlobal
