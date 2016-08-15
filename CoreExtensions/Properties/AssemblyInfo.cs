@@ -7,14 +7,14 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Core.Extensions Custom")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A custom excerpt of the Core.Extensions library. Not for reuse!")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lo Sauer")]
 [assembly: AssemblyProduct("Core.Extensions")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-[assembly: NeutralResourcesLanguage("en")]
+[assembly: AssemblyCulture("neutral")]
+[assembly: NeutralResourcesLanguage("")]
 
 // Version information for an assembly consists of the following four values:
 //

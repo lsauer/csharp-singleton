@@ -20,8 +20,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("CSharp.Portable-Singleton")]
 [assembly: AssemblyCopyright("Copyright ©  Lo Sauer 2016, MIT license")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-[assembly: NeutralResourcesLanguage("en")]
+[assembly: AssemblyCulture("neutral")]
+[assembly: NeutralResourcesLanguage("")]
 
 // Version information for an assembly consists of the following four values:
 //      Major Version

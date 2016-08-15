@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -12,7 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("SingletonTest")]
 [assembly: AssemblyCopyright("Lo Sauer ©  2016")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("InvariantCulture")]
+[assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -34,3 +35,5 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("2.0.0.3")]
 [assembly: AssemblyFileVersion("2.0.0.3")]
+[assembly: NeutralResourcesLanguage("")]
+

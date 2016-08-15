@@ -13,7 +13,6 @@ namespace Core.Singleton.Test
     using System;
 
     // class following proper implementation of the parent class being set as the singleton class
-    [Singleton(disposable: true, initByAttribute: true)]
     internal class AClass : Singleton<ParentOfParentOfAClass>
     {
         public string Value = typeof(AClass).Name;

@@ -16,8 +16,6 @@ namespace Example8
     using Core.Singleton;
     using Core.Singleton.Test;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     /// <summary>
     /// emonstrate the use of the `SingletonManager` and Serialization
     /// </summary>
@@ -67,7 +65,7 @@ namespace Example8
                     }
                 }
 
-                Assert.IsInstanceOfType(singletonManager2, typeof(SingletonManager));
+                Console.WriteLine(singletonManager2.GetType().FullName);
             }
 
             var input = Console.ReadKey(true);

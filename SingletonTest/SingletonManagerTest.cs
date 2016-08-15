@@ -14,42 +14,42 @@ namespace Core.Singleton.Test
     using System.Linq;
     using System.Reflection;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
+    [Collection("Singleton Tests")]
     public class SingletonManagerTest
     {
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the dictionary / pool without multithreading")]
+        [Fact]
+        [Description("Test the dictionary / pool without multithreading")]
         public void TestDictionary()
         {
             var singletonManager = new SingletonManager();
 
-            Assert.IsTrue(singletonManager.Pool != null);
+            Assert.True(singletonManager.Pool != null);
 
-            Assert.IsInstanceOfType(singletonManager.Pool, typeof(ConcurrentDictionary<Type, ISingleton>));
+            Assert.IsType<ConcurrentDictionary<Type, ISingleton>>(singletonManager.Pool);
 
-            Assert.IsTrue(singletonManager.Count == singletonManager.Pool.Count);
+            Assert.True(singletonManager.Count == singletonManager.Pool.Count);
 
             singletonManager.AddOrUpdate(typeof(AClass).GetTypeInfo(), null);
 
-            Assert.IsTrue(singletonManager.Count == 1);
+            Assert.True(singletonManager.Count == 1);
 
-            Assert.IsTrue(singletonManager.Pool.Count == 1);
+            Assert.True(singletonManager.Pool.Count == 1);
 
-            singletonManager.AddOrUpdate(typeof(ParentOfBClass).GetTypeInfo(), Singleton<ParentOfBClass>.CurrentInstance);
+            singletonManager.AddOrUpdate(typeof(ParentOfBClass).GetTypeInfo(), Singleton<BClass>.CurrentInstance);
 
-            Assert.IsTrue(singletonManager.Count == 2);
+            Assert.True(singletonManager.Count == 2);
 
-            Assert.IsTrue(singletonManager.Pool.Count == 2);
+            Assert.True(singletonManager.Pool.Count == 2);
 
-            Assert.IsTrue(singletonManager.Contains(typeof(ParentOfBClass).GetTypeInfo()) == true);
+            Assert.True(singletonManager.Contains(typeof(ParentOfBClass).GetTypeInfo()) == true);
 
             singletonManager.Dispose();
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the manager events")]
+        [Fact]
+        [Description("Test the manager events")]
         public void TestEvents()
         {
             var singletonTypes = (new[] { typeof(AClass), typeof(IndispensibleClass), typeof(BClass) }).ToList();
@@ -59,9 +59,9 @@ namespace Core.Singleton.Test
 
             singletonManager.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
                 {
-                    Assert.IsTrue((new[] { "Count" }).ToList().Contains(e.PropertyName));
+                    Assert.True((new[] { "Count" }).ToList().Contains(e.PropertyName));
 
-                    Assert.IsInstanceOfType(sender, typeof(SingletonManager));
+                    Assert.IsType<SingletonManager>(sender);
 
                     eventCounter += 1;
                 };
@@ -71,17 +71,17 @@ namespace Core.Singleton.Test
                 singletonManager.CreateSingleton(singletonType);
             }
 
-            Assert.AreEqual(singletonTypes.Count, eventCounter, "actual event count:" + eventCounter);
+            Assert.Equal(singletonTypes.Count, eventCounter);
 
-            Assert.IsTrue(singletonTypes.Count == singletonManager.Count);
+            Assert.True(singletonTypes.Count == singletonManager.Count);
 
-            Assert.IsFalse(singletonManager.Initialized);
+            Assert.False(singletonManager.Initialized);
 
             singletonManager.Dispose();
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the index accessors")]
+        [Fact]
+        [Description("Test the index accessors")]
         public void TestIndexing()
         {
             var singletonTypes = (new[] { typeof(AClass), typeof(IndispensibleClass), typeof(BClass) }).ToList();
@@ -94,14 +94,14 @@ namespace Core.Singleton.Test
 
                 var getSingleton = singletonManager[createSingleton.GenericClass.GetTypeInfo()];
 
-                Assert.AreEqual(createSingleton, getSingleton, "actual signleton gotten:" + getSingleton?.ToString());
+                Assert.Equal(createSingleton, getSingleton);
             }
 
             singletonManager.Dispose();
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the instantiation and fail it with an expected exception")]
+        [Fact]
+        [Description("Test the instantiation and fail it with an expected exception")]
         public void TestInstancingFailDueExplicitClass()
         {
             var singletonTypes = (new[] { typeof(AClass), typeof(IndispensibleClass), typeof(ExplicitCreateClass) }).ToList();
@@ -110,7 +110,7 @@ namespace Core.Singleton.Test
             {
                 using (var singletonManager = new SingletonManager(singletonTypes))
                 {
-                    Assert.Fail("Exception");
+                    throw new Exception("Exception should not exist");
                 }
             }
             catch (Exception exc)
@@ -118,17 +118,17 @@ namespace Core.Singleton.Test
                 var singletonException = exc.InnerException as SingletonException;
                 if (singletonException != null)
                 {
-                    Assert.AreEqual(singletonException.Cause, SingletonCause.NoCreateInternal);
+                    Assert.Equal(singletonException.Cause, SingletonCause.NoCreateInternal);
                 }
                 else
                 {
-                    Assert.Fail("Exception missing");
+                    throw new Exception("Exception should not exist");
                 }
             }
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the instantiation and fail it with an expected exception")]
+        [Fact]
+        [Description("Test the instantiation and fail it with an expected exception")]
         public void TestInstancingFailDueExplicitClassWithoutAttribute()
         {
             var singletonTypes = (new[] { typeof(AClass), typeof(IndispensibleClass), typeof(ExplicitCreateClassWithoutAttribute) }).ToList();
@@ -137,7 +137,7 @@ namespace Core.Singleton.Test
             {
                 using (var singletonManager = new SingletonManager(singletonTypes))
                 {
-                    Assert.Fail("Exception");
+                    throw new Exception("Exception should not exist");
                 }
             }
             catch (Exception exc)
@@ -145,112 +145,110 @@ namespace Core.Singleton.Test
                 var singletonException = exc.InnerException.InnerException as SingletonException;
                 if (singletonException != null)
                 {
-                    Assert.AreEqual(singletonException.Cause, SingletonCause.InstanceRequiresParameters);
+                    Assert.Equal(singletonException.Cause, SingletonCause.InstanceExistsMismatch);
                 }
                 else
                 {
-                    Assert.Fail("Exception missing");
+                    throw new Exception("Exception should not exist");
                 }
             }
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the basic instantiation and immediate disposal")]
+        [Fact]
+        [Description("Test the basic instantiation and immediate disposal")]
         public void TestInstancingToDispose()
         {
             var singletonTypes = (new[] { typeof(AClass), typeof(BClass) }).ToList();
 
             var singletonManager = new SingletonManager(singletonTypes);
 
-            Assert.IsTrue(singletonManager.Count > 0);
+            Assert.True(singletonManager.Count > 0);
 
-            Assert.IsFalse(singletonManager.Disposed);
+            Assert.False(singletonManager.Disposed);
 
             singletonManager.Reset();
 
-            Assert.IsFalse(Singleton<AClass>.Disposed);
+            Assert.False(Singleton<AClass>.Disposed);
 
-            Assert.IsFalse(Singleton<ParentOfAClass>.Disposed);
+            Assert.False(Singleton<ParentOfAClass>.Disposed);
 
-            Assert.IsTrue(Singleton<ParentOfParentOfAClass>.Disposed);
+            Assert.True(Singleton<ParentOfParentOfAClass>.Disposed);
 
-            Assert.IsTrue(Singleton<BClass>.Disposed);
+            Assert.True(Singleton<BClass>.Disposed);
 
-            Assert.IsTrue(singletonManager.Disposed);
+            Assert.True(singletonManager.Disposed);
 
-            Assert.IsTrue(singletonManager.Count == 0);
+            Assert.True(singletonManager.Count == 0);
 
             singletonManager.Dispose();
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the basic instantiation and state")]
+        [Fact]
+        [Description("Test the basic instantiation and state")]
         public void TestInstancingToDisposeWithUsing()
         {
             var singletonTypes = (new[] { typeof(AClass), typeof(BClass) }).ToList();
 
             using (var singletonManager = new SingletonManager(singletonTypes))
             {
-                Assert.IsInstanceOfType(singletonManager, typeof(SingletonManager));
+                Assert.IsType<SingletonManager>(singletonManager);
             }
 
-            Assert.IsFalse(Singleton<AClass>.Disposed);
+            Assert.False(Singleton<AClass>.Disposed);
 
-            Assert.IsFalse(Singleton<ParentOfAClass>.Disposed);
+            Assert.False(Singleton<ParentOfAClass>.Disposed);
 
-            Assert.IsTrue(Singleton<ParentOfParentOfAClass>.Disposed);
+            Assert.True(Singleton<ParentOfParentOfAClass>.Disposed);
 
-            Assert.IsTrue(Singleton<BClass>.Disposed);
+            Assert.True(Singleton<BClass>.Disposed);
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the basic instantiation without parameters passed")]
+        [Fact]
+        [Description("Test the basic instantiation without parameters passed")]
         public void TestInstancingWithoutParameters()
         {
             var singletonManager = new SingletonManager();
 
-            Assert.IsTrue(singletonManager.GetType() == typeof(SingletonManager));
+            Assert.True(singletonManager.GetType() == typeof(SingletonManager));
 
-            Assert.IsTrue(singletonManager.GetType().GetTypeInfo() == typeof(SingletonManager));
+            Assert.True(singletonManager.GetType().GetTypeInfo() == typeof(SingletonManager));
 
-            Assert.IsInstanceOfType(singletonManager, typeof(SingletonManager));
+            Assert.IsType<SingletonManager>(singletonManager);
 
-            Assert.IsInstanceOfType(singletonManager, typeof(ISingletonManager));
+            Assert.IsType<SingletonManager>(singletonManager);
 
-            Assert.IsTrue(singletonManager is ISingletonManager);
+            Assert.True(singletonManager.Initialized == false);
 
-            Assert.IsTrue(singletonManager.Initialized == false);
+            Assert.True(singletonManager.Disposed == false);
 
-            Assert.IsTrue(singletonManager.Disposed == false);
-
-            Assert.IsTrue(singletonManager.Count == 0);
+            Assert.True(singletonManager.Count == 0);
 
             singletonManager.Dispose();
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the basic instantiation with parameters passed")]
+        [Fact]
+        [Description("Test the basic instantiation with parameters passed")]
         public void TestInstancingWithParameters()
         {
             var singletonTypes = (new[] { typeof(AClass), typeof(IndispensibleClass), typeof(BClass) }).ToList();
 
             var singletonManager = new SingletonManager(singletonTypes);
 
-            Assert.IsTrue(singletonTypes.Count == singletonManager.Count);
+            Assert.True(singletonTypes.Count == singletonManager.Count);
 
-            Assert.IsTrue(singletonTypes.Count == singletonManager.Pool.Count);
+            Assert.True(singletonTypes.Count == singletonManager.Pool.Count);
 
-            Assert.IsTrue(singletonManager is ISingletonManager && singletonManager != null);
+            Assert.True(singletonManager is ISingletonManager && singletonManager != null);
 
-            Assert.IsTrue(singletonManager.Initialized);
+            Assert.True(singletonManager.Initialized);
 
-            Assert.IsTrue(singletonManager.Disposed == false);
+            Assert.True(singletonManager.Disposed == false);
 
             singletonManager.Dispose();
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test method GetInstance and compare the state")]
+        [Fact]
+        [Description("Test method GetInstance and compare the state")]
         public void TestMethodGetInstance()
         {
             var singletonTypes = (new[] { typeof(AClass), typeof(IndispensibleClass), typeof(BClass) }).ToList();
@@ -263,18 +261,18 @@ namespace Core.Singleton.Test
 
                 var getSingleton = singletonManager.GetInstance(createSingleton.GenericClass.GetTypeInfo());
 
-                Assert.AreEqual(createSingleton, getSingleton, "Actual signleton gotten:" + getSingleton?.ToString());
+                Assert.Equal(createSingleton, getSingleton);
             }
 
             var getSingletonTypedB = singletonManager.GetInstance<BClass>();
 
-            Assert.AreEqual(Singleton<BClass>.CurrentInstance, getSingletonTypedB, "Actual signleton gotten:" + getSingletonTypedB?.ToString());
+            Assert.Equal(Singleton<BClass>.CurrentInstance, getSingletonTypedB);
 
             singletonManager.Dispose();
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the generic GetInstance Method and fail it ")]
+        [Fact]
+        [Description("Test the generic GetInstance Method and fail it ")]
         public void TestMethodGetInstanceGenericFail()
         {
             var singletonTypes = (new[] { typeof(AClass), typeof(IndispensibleClass), typeof(BClass) }).ToList();
@@ -285,66 +283,63 @@ namespace Core.Singleton.Test
             {
                 var getSingletonTypedA = singletonManager.GetInstance<ParentOfParentOfAClass>();
 
-                Assert.AreEqual(
-                    Singleton<ParentOfParentOfAClass>.CurrentInstance, 
-                    getSingletonTypedA, 
-                    "actual signleton gotten:" + getSingletonTypedA?.ToString());
+                Assert.Equal(Singleton<ParentOfParentOfAClass>.CurrentInstance, getSingletonTypedA);
             }
             catch (Exception exc)
             {
                 var singletonException = exc as SingletonException;
                 if (singletonException != null)
                 {
-                    Assert.AreEqual(singletonException.Cause, SingletonCause.InstanceExistsMismatch);
+                    Assert.Equal(singletonException.Cause, SingletonCause.InstanceExistsMismatch);
                 }
                 else
                 {
-                    Assert.Fail("Exception missing" + exc.Message);
+                    throw new Exception("Exception should not exist");
                 }
             }
 
             singletonManager.Dispose();
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the Initialize method without parameters passed to the Manager's constructor")]
+        [Fact]
+        [Description("Test the Initialize method without parameters passed to the Manager's constructor")]
         public void TestMethodInitializeWithOutParameters()
         {
             using (var singletonManager = new SingletonManager())
             {
                 singletonManager.Initialize(typeof(SingletonManagerTest));
 
-                Assert.IsTrue(singletonManager.Pool.Count > 0);
+                Assert.True(singletonManager.Pool.Count > 0);
 
-                Assert.IsTrue(singletonManager is ISingletonManager);
+                Assert.IsType<SingletonManager>(singletonManager);
 
-                Assert.IsTrue(singletonManager.Initialized);
+                Assert.True(singletonManager.Initialized);
             }
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the Initialize method with parameters passed to the Manager's constructor")]
+        [Fact]
+        [Description("Test the Initialize method with parameters passed to the Manager's constructor")]
         public void TestMethodInitializeWithParameters()
         {
             var singletonTypes = (new[] { typeof(AClass) }).ToList();
 
             var singletonManager = new SingletonManager(singletonTypes);
 
-            Assert.IsTrue(singletonTypes.Count == singletonManager.Count);
+            Assert.True(singletonTypes.Count == singletonManager.Count);
 
             singletonManager.Initialize(typeof(SingletonManagerTest));
 
-            Assert.IsTrue(singletonTypes.Count < singletonManager.Pool.Count);
+            Assert.True(singletonTypes.Count < singletonManager.Pool.Count);
 
-            Assert.IsTrue(singletonManager is ISingletonManager);
+            Assert.IsType<SingletonManager>(singletonManager);
 
-            Assert.IsTrue(singletonManager.Initialized);
+            Assert.True(singletonManager.Initialized);
 
             singletonManager.Dispose();
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the count property and event trigger")]
+        [Fact]
+        [Description("Test the count property and event trigger")]
         public void TestPropertyCount()
         {
             var singletonTypes = (new[] { typeof(AClass), typeof(IndispensibleClass), typeof(BClass) }).ToList();
@@ -354,10 +349,9 @@ namespace Core.Singleton.Test
 
             singletonManager.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
                 {
-                    Assert.IsInstanceOfType(sender, typeof(SingletonManager));
-
                     if (e.PropertyName == "Count")
                     {
+                        Assert.IsType<SingletonManager>(sender);
                         countCounter += 1;
                     }
                 };
@@ -365,15 +359,15 @@ namespace Core.Singleton.Test
             foreach (var singletonType in singletonTypes)
             {
                 singletonManager.CreateSingleton(singletonType);
-                Assert.AreEqual(singletonManager.Pool.Count, countCounter, "actual count triggered:" + countCounter);
+                Assert.Equal(singletonManager.Pool.Count, countCounter);
             }
 
-            Assert.IsTrue(singletonTypes.Count == singletonManager.Count);
+            Assert.True(singletonTypes.Count == singletonManager.Count);
             singletonManager.Dispose();
         }
 
-        [TestMethod]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Test the Initialized property")]
+        [Fact]
+        [Description("Test the Initialized property")]
         public void TestPropertyInitialized()
         {
             var singletonTypes = (new[] { typeof(ParentOfParentOfAClass), typeof(IndispensibleClass), typeof(BClass) }).ToList();
@@ -382,17 +376,19 @@ namespace Core.Singleton.Test
             {
                 singletonManager.Initialize(typeof(SingletonManagerTest));
 
-                Assert.IsTrue(singletonManager.Pool.Count > singletonTypes.Count);
+                Assert.True(singletonManager.Pool.Count > singletonTypes.Count);
 
-                Assert.IsTrue(singletonManager is ISingletonManager);
+                Assert.IsType<SingletonManager>(singletonManager);
 
-                Assert.IsTrue(singletonManager.Initialized);
+                Assert.NotNull(singletonManager as ISingletonManager);
+
+                Assert.True(singletonManager.Initialized);
 
                 singletonManager.Dispose();
 
-                Assert.IsFalse(singletonManager.Initialized);
+                Assert.False(singletonManager.Initialized);
 
-                Assert.IsTrue(singletonManager.Disposed);
+                Assert.True(singletonManager.Disposed);
             }
         }
     }
