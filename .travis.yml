@@ -3,4 +3,4 @@ solution: Singleton.sln
 
 mono:
   - latest
-  - 3.8.0
+  - 4.4.2
