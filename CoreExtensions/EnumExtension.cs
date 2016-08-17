@@ -3,13 +3,14 @@
 // </copyright>
 // <summary>   A custom excerpt of the Core.Extensions library. Not for reuse!  </summary
 // <language>  C# > 3.0                                                         </language>
-// <version>   2.0.0.3                                                          </version>
+// <version>   2.0.0.4                                                          </version>
 // <author>    Lo Sauer; people credited in the sources                         </author>
 // <project>   https://github.com/lsauer/dotnet-core.extensions                 </project>
 namespace Core.Extensions
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
 
@@ -44,10 +45,12 @@ namespace Core.Extensions
         ///     Specific  = 1,
         /// }
         /// ...
-        ///     var description = testType.Specific.GetDescription().FirstOrDefault();
+        ///     string description = testType.Specific.GetDescription().FirstOrDefault();
         /// ...
         /// ```
         /// </example>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", 
+            Justification = "Reviewed. Suppression is OK here.")]
         public static IEnumerable<DescriptionAttribute> GetDescriptions(this Enum self, string defaultValue = null)
         {
             var fieldInfo = self.GetType().GetRuntimeField(self.ToString());
@@ -55,11 +58,12 @@ namespace Core.Extensions
             if (fieldInfo != null)
             {
                 IEnumerable<DescriptionAttribute> descriptions = fieldInfo.GetCustomAttributes<DescriptionAttribute>(true);
-                if (descriptions != null && descriptions.Count() > 0)
+                var descriptionAttributes = descriptions as IList<DescriptionAttribute> ?? descriptions.ToList();
+                if (descriptions != null && descriptionAttributes.Any())
                 {
-                    foreach (var description in descriptions)
+                    foreach (var description in descriptionAttributes)
                     {
-                        yield return (DescriptionAttribute)description;
+                        yield return description;
                     }
                 }
                 else
