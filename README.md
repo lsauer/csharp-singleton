@@ -1,5 +1,5 @@
 
-<img src="https://googledrive.com/host/0ByqWUM5YoR35SUREUWdZcTRiQ3M/singleton-icon2.jpg" style="border:0px; margin:10px; margin-right:30px; float:left;" height="42" />
+<img src="https://googledrive.com/host/0ByqWUM5YoR35ZWhvaXFrZ2pRcmM/singularity-icon-64.png" align="right" height="64" />
 ## Singleton -  A generic, portable and easy to use Singleton pattern implementation     
 ##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for .NET Core / C#
 
