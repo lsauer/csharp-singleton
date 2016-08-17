@@ -12,7 +12,7 @@
 **current** |  [![Build Status](https://travis-ci.org/lsauer/csharp-singleton.svg?branch=master)](https://travis-ci.org/lsauer/csharp-singleton)   
 **package** | <a href="https://www.nuget.org/packages/CSharp.Portable-Singleton/" target="_blank"><img src="https://img.shields.io/nuget/v/CSharp.Portable-Singleton.svg?maxAge=6000"/></a> `PM> Install-Package CSharp.Portable-Singleton`  
 **description** | A generic, portable, documented and easy to use Singleton pattern implementation, to enforce and manage single instances
-**documentation** |  <a href="https://googledrive.com/host/0ByqWUM5YoR35ZFpzNmN0UE5kQzg/index.html">complete reference v2.0.0.1</a>
+**documentation** |  <a href="https://googledrive.com/host/0ByqWUM5YoR35OWFCVHMtVnFiSGM/index.html">complete reference v2.0.0.4</a>
 **suported** | <ul><li><a href="https://en.wikipedia.org/wiki/.NET_Framework#.NET_Core" target="_blank">.NET Core</a></li> <li>.NET Framework 4.5</li> <li>Winows Phone 8.1</li>  <li>Windows 8, 10</li> <li><a href="https://developer.xamarin.com/guides/android/" target="_blank">Xamarin.Android</a></li> <li><a href="https://developer.xamarin.com/guides/ios/" target="_blank">Xamarin.iOS</a></li>  <li>Xamarin.iOS Classic</li><li>XBOX 360 (req. adapations)</li></ul>   
 
 
@@ -49,14 +49,14 @@ Social:  [![Twitter](https://img.shields.io/twitter/url/https/github.com/lsauer/
 
 ### Documentation
 
-Please visit <a href="https://googledrive.com/host/0ByqWUM5YoR35ZFpzNmN0UE5kQzg/index.html" target="_blank">here for a complete reference</a>, which is also included in the <a href="https://www.nuget.org/packages/CSharp.Portable-Singleton/" target="_blank">NuGet package</a>.
+Please visit <a href="https://googledrive.com/host/0ByqWUM5YoR35OWFCVHMtVnFiSGM/index.html" target="_blank">here for a complete reference</a>, which is also included in the <a href="https://www.nuget.org/packages/CSharp.Portable-Singleton/" target="_blank">NuGet package</a>.
 
 ### Setup
 
 1. Install the package with the NuGet Package manager: `PM> Install-Package CSharp.Portable-Singleton`.  
 2. Add the namespace to your code: `using Core.Singleton;`.  
 3. Derive the supposed singleton class, elevating it to the logical singleton-class: `MySingleton : Singleton<MySingleton>`.  
-4. **Done!** Use interfaces, delve into the <a href="https://googledrive.com/host/0ByqWUM5YoR35ZFpzNmN0UE5kQzg/index.html" target="_blank">documentation</a> and take a look at <a href="https://csharpguidelines.codeplex.com/" target="_blank">best practices</a>. 
+4. **Done!** Use interfaces, delve into the <a href="https://googledrive.com/host/0ByqWUM5YoR35OWFCVHMtVnFiSGM/index.html" target="_blank">documentation</a> and take a look at <a href="https://csharpguidelines.codeplex.com/" target="_blank">best practices</a>. 
 
 Find below an example to provide a glimpse of what the code will look like in practice:
 
