@@ -15,7 +15,7 @@
   <Class Name="Core.Singleton.Singleton&lt;TClass&gt;" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="10.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAgCMGEAAgJAAAAAAEhAAABBQCQAAAIAACAAA=</HashCode>
+      <HashCode>IAAAECAAgCEGFAAiJABCAAAEhAAABBQCQAAAIAACAAA=</HashCode>
       <FileName>Singleton.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -49,14 +49,14 @@
   <Interface Name="Core.Singleton.ISingleton">
     <Position X="13" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAEAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interface\ISingleton.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Enum Name="Core.Singleton.SingletonCause" Collapsed="true">
-    <Position X="13" Y="10" Width="1.5" />
+  <Enum Name="Core.Singleton.SingletonCause">
+    <Position X="13" Y="10.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAIAAABAAAAAAAAgAAACAAAAAAAAAAAAAAAEBA=</HashCode>
+      <HashCode>AAAAAAAIAAABAAAAAIAAAAACCAACAAAAAAAAIAAAABA=</HashCode>
       <FileName>Enum\SingletonCause.cs</FileName>
     </TypeIdentifier>
   </Enum>
