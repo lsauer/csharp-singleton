@@ -238,7 +238,7 @@ namespace Core.Singleton.Test
 
             Assert.True(singletonTypes.Count == singletonManager.Pool.Count);
 
-            Assert.True(singletonManager is ISingletonManager && singletonManager != null);
+            Assert.True(typeof(ISingletonManager).IsAssignableFrom(singletonManager.GetType()));
 
             Assert.True(singletonManager.Initialized);
 

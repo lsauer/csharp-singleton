@@ -3,7 +3,7 @@
 // </copyright>
 // <summary>   A generic, portable and easy to use Singleton pattern library    </summary
 // <language>  C# > 3.0                                                         </language>
-// <version>   2.0.0.3                                                          </version>
+// <version>   2.0.0.4                                                          </version>
 // <author>    Lo Sauer; people credited in the sources                         </author>
 // <project>   https://github.com/lsauer/csharp-singleton                       </project>
 namespace Core.Singleton
@@ -285,11 +285,14 @@ namespace Core.Singleton
         public void Dispose()
         {
             // ToArray() is required to execute the deferred query
-            this.Pool.Select(singleton => singleton.Key?.GetTypeInfo().GetSingletonMethod("Reset")).ToArray();
+            var i = this.Pool.Select(singleton => singleton.Key?.GetTypeInfo().GetSingletonMethod("Reset")).Count();
 
             if(this.Disposed == false)
             {
                 this.Dispose(true);
+            }
+            if (i > 0)
+            {
                 GC.SuppressFinalize(this);
             }
         }

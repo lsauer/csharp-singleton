@@ -3,15 +3,18 @@
 // </copyright>
 // <summary>   A generic, portable and easy to use Singleton pattern library    </summary
 // <language>  C# > 3.0                                                         </language>
-// <version>   2.0.0.3                                                          </version>
+// <version>   2.0.0.4                                                          </version>
 // <author>    Lo Sauer; people credited in the sources                         </author>
 // <project>   https://github.com/lsauer/csharp-singleton                       </project>
 namespace Core.Singleton
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
+
+    using Core.Extensions;
 
     /// <summary>
     /// The  <see cref="TypeInfo"/> extension.
@@ -28,19 +31,11 @@ namespace Core.Singleton
         {
             parameterTypes = parameterTypes ?? new Type[] { };
             Type constructed = typeof(Singleton<>).MakeGenericType(new[] { type.AsType() });
-            var runtimeMethod = constructed.GetRuntimeMethods().Where(c => c.Name.StartsWith(method)).First();
-            var methodInfos = from ele in constructed.GetRuntimeMethods()
-                             where ele.Name.Equals(method)
-                             let param = ele.GetParameters()
-                             where
-                                 param.Length == parameterTypes.Length
-                                 && param.Select(p => p.ParameterType.Name).SequenceEqual(parameterTypes.Select(t => t.Name))
-                             select ele;
 
-            // Maybe check if we have more than 1? Or not?
-            runtimeMethod = methodInfos.FirstOrDefault();
+            IEnumerable<MethodInfo> methodInfos = constructed.GetTypeInfo().GetMethodsByTypes(method, parameterTypes);
 
-            // var runtimeMethod = constructed.GetRuntimeMethod(method, (new Type[] { constructed }).Concat(parameterTypes ?? new Type[] {}).ToArray());
+            var runtimeMethod = methodInfos.FirstOrDefault();
+
             if (runtimeMethod != null)
             {
                 var value = runtimeMethod.Invoke(constructed, parameterValues);
@@ -75,11 +70,11 @@ namespace Core.Singleton
         /// ```
         ///     if (type.IsClass == true &amp;&amp; type.IsSingleton() )
         ///     {
-        ///         Type constructed = typeof(Singleton&lt;>).MakeGenericType(new[] { type.AsType() });
-        ///         var property = constructed.GetRuntimeProperty(SingletonProperty.CurrentInstance.ToString());
+        ///         Type type = typeof(Singleton&lt;>).MakeGenericType(new[] { type.AsType() });
+        ///         var property = type.GetRuntimeProperty(SingletonProperty.CurrentInstance.ToString());
         ///         if (property != null)
         ///         {
-        ///             var singleton = property.GetValue(constructed, null);
+        ///             var singleton = property.GetValue(type, null);
         ///             return instance as ISingleton;
         ///         }
         ///     }
