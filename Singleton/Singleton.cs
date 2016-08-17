@@ -3,12 +3,13 @@
 // </copyright>
 // <summary>   A generic, portable and easy to use Singleton pattern library    </summary
 // <language>  C# > 3.0                                                         </language>
-// <version>   2.0.0.3                                                          </version>
+// <version>   2.0.0.4                                                          </version>
 // <author>    Lo Sauer; people credited in the sources                         </author>
 // <project>   https://github.com/lsauer/csharp-singleton                       </project>
 namespace Core.Singleton
 {
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
     using System.Reflection;
     using System.Runtime.CompilerServices;
     using System.Xml.Serialization;
@@ -32,6 +33,7 @@ namespace Core.Singleton
     /// <typeparam name="TClass">An instantiable Type T with a public parameterless constructor </typeparam>
     /// <remarks>If necessary private constructors can be supported. Please contact the author.</remarks>
     // [DebuggerDisplay("{DebuggerDisplay,nq}")]
+    [SuppressMessage("ReSharper", "StaticMemberInGenericType")]
     public class Singleton<TClass> : ISingleton
         where TClass : class, new()
     {
@@ -60,9 +62,9 @@ namespace Core.Singleton
         private static object _lock = new object();
 
         /// <summary>
-        /// Counts the number of <see cref="Dispose(bool)"/> calls for use within debugging
+        /// Counts the number of <see cref="Dispose(bool)"/> calls for special cases such as testing and debugging
         /// </summary>
-        private static int disposeCount = 0;
+        public static int DisposeCount { get; private set; } = 0;
 
         /// <summary>
         /// Reference to the <see cref="Singleton{T}"/> which was created through access of <see cref="CurrentInstance"/> without a prior instance
@@ -83,6 +85,11 @@ namespace Core.Singleton
         /// Set to `true` for aditional checks and exceptions thrown in case of an error
         /// </summary>
         private readonly bool strictCheck = false;
+
+        /// <summary>
+        /// Sets whether to call <see cref="Reset"/> for Singletons who do not have a <see cref="Manager"/> set. Backing field for <see cref="AutoReset"/>
+        /// </summary>
+        private bool autoReset = true;
 
         /// <summary>
         /// reference to the <see cref="SingletonManager"/> to add the instance to a pool of global or contextual singletons
@@ -221,7 +228,7 @@ namespace Core.Singleton
 
                 lock (_lock)
                 {
-                    if (instanceByCtor is TClass)
+                    if (instanceByCtor as TClass != null)
                     {
                         return (TClass)instanceByCtor;
                     }
@@ -298,7 +305,19 @@ namespace Core.Singleton
         /// <summary>
         /// Sets whether to call <see cref="Reset"/> for Singletons who do not have a <see cref="Manager"/> set when <see cref="Dispose"/> is invoked 
         /// </summary>
-        public bool AutoReset { get; set; } = true;
+        public bool AutoReset
+        {
+            get
+            {
+                return this.Manager == null && this.autoReset
+                       && ((Attribute != null && Attribute.Disposable == true) || (Attribute == null && (new SingletonAttribute()).Disposable == true));
+            }
+
+            set
+            {
+                this.autoReset = value;
+            }
+        }
 
         /// <summary>
         /// Gets the class type of the generic parameter.
@@ -405,7 +424,7 @@ namespace Core.Singleton
             _disposed = false;
             _initialized = false;
 
-            disposeCount = 0;
+            DisposeCount = 0;
 
             if (instanceByCall != null || instanceByCtor != null)
             {
@@ -441,8 +460,7 @@ namespace Core.Singleton
             this.Dispose(true);
 
             // auto-reset unmanaged singletons by default
-            if (this.Manager == null && this.AutoReset
-                && ((Attribute != null && Attribute.Disposable == true) || ((new SingletonAttribute()).Disposable == true && Attribute == null)))
+            if (this.AutoReset == true)
             {
                 Reset();
             }
@@ -471,7 +489,7 @@ namespace Core.Singleton
         {
             if (!Disposed)
             {
-                disposeCount += 1;
+                DisposeCount += 1;
 
                 if (disposing)
                 {
