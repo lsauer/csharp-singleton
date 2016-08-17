@@ -1,6 +1,11 @@
 language: csharp
 solution: Singleton.sln
-
+install:
+  - nuget restore Singleton.sln
+  - nuget install xunit.runner.console -Version 2.1.0 -OutputDirectory packages
+script:
+  - xbuild /p:Configuration=Release Singleton.sln
+  - mono ./packages/xunit.runner.console.2.1.0/tools/xunit.console.exe ./SingletonTest/bin/Release/SingletonTest.dll
 mono:
   - latest
   - 4.4.2
