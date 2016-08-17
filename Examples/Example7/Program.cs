@@ -3,7 +3,7 @@
 // </copyright>
 // <summary>   A generic, portable and easy to use Singleton pattern library    </summary
 // <language>  C# > 3.0                                                         </language>
-// <version>   2.0.0.3                                                          </version>
+// <version>   2.0.0.4                                                          </version>
 // <author>    Lo Sauer; people credited in the sources                         </author>
 // <project>   https://github.com/lsauer/csharp-singleton                       </project>
 namespace Example7
@@ -43,6 +43,7 @@ namespace Example7
                 try
                 {
                     var refeq5 = ReferenceEquals(parentOfParentOfBClass, Singleton<ParentOfBClass>.CurrentInstance);
+                    Console.WriteLine($"References Equal Case 5: {refeq5}");
                 }
                 catch (SingletonException exc)
                 {
@@ -52,6 +53,7 @@ namespace Example7
                 try
                 {
                     var refeq6 = ReferenceEquals(parentOfParentOfBClass, Singleton<ParentOfParentOfBClass>.CurrentInstance);
+                    Console.WriteLine($"References Equal Case 6: {refeq6}");
                 }
                 catch (SingletonException exc)
                 {
@@ -65,6 +67,7 @@ namespace Example7
                 try
                 {
                     var refeq8 = (ReferenceEquals((ParentOfBClass)parentOfParentOfBClass, Singleton<ParentOfBClass>.CurrentInstance));
+                    Console.WriteLine($"References Equal Case 8: {refeq8}");
                 }
                 catch(Exception exc)
                 {
@@ -76,7 +79,7 @@ namespace Example7
                 Console.WriteLine($"References Equal Case 9: {refeq9}");
             }
 
-            var input = Console.ReadKey(true);
+            Console.ReadKey(true);
         }
     }
 }

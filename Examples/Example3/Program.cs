@@ -3,7 +3,7 @@
 // </copyright>
 // <summary>   A generic, portable and easy to use Singleton pattern library    </summary
 // <language>  C# > 3.0                                                         </language>
-// <version>   2.0.0.3                                                          </version>
+// <version>   2.0.0.4                                                          </version>
 // <author>    Lo Sauer; people credited in the sources                         </author>
 // <project>   https://github.com/lsauer/csharp-singleton                       </project>
 namespace Example3
@@ -64,7 +64,7 @@ namespace Example3
 
             Console.WriteLine($" kk.Value == lg.Value && lg.Value == hh.Value ... {condition3}");
 
-            var input = Console.ReadKey(true);
+            Console.ReadKey(true);
         }
     }
 }

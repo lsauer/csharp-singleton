@@ -3,7 +3,7 @@
 // </copyright>
 // <summary>   A generic, portable and easy to use Singleton pattern library    </summary
 // <language>  C# > 3.0                                                         </language>
-// <version>   2.0.0.3                                                          </version>
+// <version>   2.0.0.4                                                          </version>
 // <author>    Lo Sauer; people credited in the sources                         </author>
 // <project>   https://github.com/lsauer/csharp-singleton                       </project>
 namespace Examples.Example2
@@ -38,7 +38,7 @@ namespace Examples.Example2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Running: " + typeof(Program).Namespace + ". Press any key to quit...");
+            Console.WriteLine($"Running: { typeof(Program).Namespace } , Arguments: {args.Length}. Press any key to quit...");
 
             // demonstrate several ways to initialize
 
@@ -56,6 +56,7 @@ namespace Examples.Example2
             try
             {
                 var c = Singleton<ParentOfAClass>.CurrentInstance.GetHashCode();
+                Console.WriteLine($"Value  c: {c}");
             }
             catch (SingletonException exc)
             {
@@ -70,9 +71,11 @@ namespace Examples.Example2
             var f = (AClass)ParentOfParentOfAClass.CurrentInstance;
             var g = ParentOfParentOfAClass.CurrentInstance as AClass;
 
-            Console.WriteLine($" a == d == f == g ... {a == d && (ReferenceEquals(f, g))}");
+            Console.WriteLine($" a == b == e ... {a == b && b == e}");
 
-            var input = Console.ReadKey(true);
+            Console.WriteLine($" a == d == f == g ... {a == d && ReferenceEquals(f, g)}");
+
+            Console.ReadKey(true);
         }
     }
 }

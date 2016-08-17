@@ -3,7 +3,7 @@
 // </copyright>
 // <summary>   A generic, portable and easy to use Singleton pattern library    </summary
 // <language>  C# > 3.0                                                         </language>
-// <version>   2.0.0.3                                                          </version>
+// <version>   2.0.0.4                                                          </version>
 // <author>    Lo Sauer; people credited in the sources                         </author>
 // <project>   https://github.com/lsauer/csharp-singleton                       </project>
 namespace Example4
@@ -66,7 +66,7 @@ namespace Example4
             Console.WriteLine("Running: " + typeof(Program).Namespace + ". Press any key to quit...");
 
             var ppopAClass = new ParentOfParentOfAClass("hello world!");
-            var condition = ppopAClass is ISingleton;
+            var condition = ppopAClass as ISingleton != null;
 
             Console.WriteLine($"ppopAClass is ISingleton ... { condition }");
             // > true
@@ -92,7 +92,7 @@ namespace Example4
                 Console.WriteLine($"Exception: { exc.InnerException?.Message}" );
             }
 
-            var input = Console.ReadKey(true);
+            Console.ReadKey(true);
         }
     }
 }

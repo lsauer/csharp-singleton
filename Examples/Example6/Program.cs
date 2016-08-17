@@ -3,7 +3,7 @@
 // </copyright>
 // <summary>   A generic, portable and easy to use Singleton pattern library    </summary
 // <language>  C# > 3.0                                                         </language>
-// <version>   2.0.0.3                                                          </version>
+// <version>   2.0.0.4                                                          </version>
 // <author>    Lo Sauer; people credited in the sources                         </author>
 // <project>   https://github.com/lsauer/csharp-singleton                       </project>
 namespace Example6
@@ -77,11 +77,13 @@ namespace Example6
                     {
                         var value = sender.GetValue("Value");
                         Console.WriteLine($"Initalized ... {arg.Value}");
+                        Console.WriteLine($"Sender ... {sender.GetType()?.FullName}, value: {value}");
                     }
                 };
 
             var ppopAClass = new ParentOfParentOfAClass("hello world!");
-            var condition = ppopAClass is ISingleton;
+            var condition = ppopAClass as ISingleton != null;
+            Console.WriteLine($"ppopAClass is ISingleton ... {condition}");
 
             try
             {
@@ -92,7 +94,7 @@ namespace Example6
                 Console.WriteLine(exc.InnerException.Message);
             }
 
-            var input = Console.ReadKey(true);
+            Console.ReadKey(true);
         }
     }
 }

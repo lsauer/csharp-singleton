@@ -3,7 +3,7 @@
 // </copyright>
 // <summary>   A generic, portable and easy to use Singleton pattern library    </summary
 // <language>  C# > 3.0                                                         </language>
-// <version>   2.0.0.3                                                          </version>
+// <version>   2.0.0.4                                                          </version>
 // <author>    Lo Sauer; people credited in the sources                         </author>
 // <project>   https://github.com/lsauer/csharp-singleton                       </project>
 namespace Examples.Example5
@@ -39,13 +39,7 @@ namespace Examples.Example5
 
         private int? result = null;
 
-        public static new ParentOfAClass CurrentInstance
-        {
-            get
-            {
-                return (ParentOfAClass)Singleton<ParentOfParentOfAClass>.CurrentInstance;
-            }
-        }
+        public static new ParentOfAClass CurrentInstance => (ParentOfAClass)Singleton<ParentOfParentOfAClass>.CurrentInstance;
 
         public void Add(int number)
         {
@@ -97,14 +91,14 @@ namespace Examples.Example5
     }
 
     /// <summary>
-    /// The specific interface interface describing custom logic to be present
+    /// The common interface describing custom logic to be present 
     /// </summary>
-    /// <typeparam name="T">The type of the singleton logical class</typeparam>
-    public interface ISingleton<out ParentOfAClass>
+    /// <typeparam name="TParentOfAClass">The type of the singleton logical class</typeparam>
+    public interface ISingleton<out TParentOfAClass>
     {
         void Add(int number);
 
-        ParentOfAClass Compute();
+        TParentOfAClass Compute();
 
         void Render();
     }
@@ -118,6 +112,7 @@ namespace Examples.Example5
         {
             Console.WriteLine("Running: " + typeof(Program).Namespace + ". Press any key to quit...");
             var tmp = new IndispensibleClass();
+            Console.WriteLine($"tmp is {tmp.InstanceClass.FullName}");
 
             var singletonManager = new SingletonManager();
             singletonManager.Initialize(AppDomain.CurrentDomain.GetAssemblies());
@@ -169,11 +164,11 @@ namespace Examples.Example5
             }
             catch (Exception exc)
             {
-                reason = (exc.InnerException as SingletonException).Cause.ToString();
+                reason = (exc.InnerException as SingletonException)?.Cause.ToString();
                 Console.WriteLine($"Exception: {reason}");
             }
 
-            var input = Console.ReadKey(true);
+            Console.ReadKey(true);
         }
     }
 }

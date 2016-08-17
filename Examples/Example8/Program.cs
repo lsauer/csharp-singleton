@@ -3,7 +3,7 @@
 // </copyright>
 // <summary>   A generic, portable and easy to use Singleton pattern library    </summary
 // <language>  C# > 3.0                                                         </language>
-// <version>   2.0.0.3                                                          </version>
+// <version>   2.0.0.4                                                          </version>
 // <author>    Lo Sauer; people credited in the sources                         </author>
 // <project>   https://github.com/lsauer/csharp-singleton                       </project>
 namespace Example8
@@ -25,7 +25,7 @@ namespace Example8
         {
             Console.WriteLine("Running: " + typeof(Program).Namespace + ". Press any key to quit...");
 
-            var singletonTypes = (new[] { typeof(AClass), typeof(IndispensibleClass), typeof(SerializableClass) }).ToList();
+            var singletonTypes = new[] { typeof(AClass), typeof(IndispensibleClass), typeof(SerializableClass) }.ToList();
 
             var singletonManager = new SingletonManager();
             foreach (var singletonType in singletonTypes)
@@ -39,17 +39,18 @@ namespace Example8
 
             // geting a typed instance:
 
-            //      => this is forbidden, for code readability
+            // => this is forbidden, for code readability
             try
             {
                 var aClass = singletonManager.GetInstance<ParentOfParentOfAClass>();
+                Console.WriteLine($"aClass ImplementsLogic: {aClass.ImplementsLogic} ");
             }
             catch (Exception exc)
             {
                 Console.WriteLine($"Exeption: {exc.Message}");
             }
 
-            //      => this is OK
+            // => this is OK
             var aClass2 = singletonManager[typeof(ParentOfParentOfAClass).GetTypeInfo()];
 
             Console.WriteLine($"Singleton is: {aClass2.GetType().FullName} ");
@@ -60,7 +61,7 @@ namespace Example8
                 {
                     if (singleton.GetType().IsSerializable)
                     {
-                        XmlSerializer xml = new System.Xml.Serialization.XmlSerializer(singleton.GetType());
+                        XmlSerializer xml = new XmlSerializer(singleton.GetType());
                         xml.Serialize(Console.Out, singleton);
                     }
                 }
@@ -68,7 +69,7 @@ namespace Example8
                 Console.WriteLine(singletonManager2.GetType().FullName);
             }
 
-            var input = Console.ReadKey(true);
+            Console.ReadKey(true);
         }
     }
 }
