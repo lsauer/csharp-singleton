@@ -17,24 +17,24 @@
 
 
 ## Table of Contents
- - Download
- - Documentation
- - Setup
- - Background
- - Initialization
- - Singleton Properties
- - Singleton Instances & Checks
- - Singleton Events
- - The SingletonPropertyEventArgs
- - Example Usage
- - SingletonException
- - SingletonAttribute
- - SingletonManager - Managing Singletons
- - Serialization / Deserialization
- - Tests
- - Notes
- - Best practices
- - Useful Links
+ - [Download](#download)
+ - [Documentation](#documentation)
+ - [Setup](#setup)
+ - [Background](#background)
+ - [Initialization](#initialization)
+ - [Singleton Properties](#singleton-properties)
+ - [Singleton Instances & Checks](#singleton-instances--checks)
+ - [Singleton Events](#singleton-events)
+ - [The SingletonPropertyEventArgs](#the-singletonpropertyeventargs)
+ - [Example Usage](#Example Usage)
+ - [SingletonException](#singletonexception)
+ - [SingletonAttribute](#singletonattribute)
+ - [SingletonManager - Managing Singletons](#singletonmanager---managing-several-singletons)
+ - [Serialization / Deserialization](#serialization--deserialization)
+ - [Tests](#tests)
+ - [Notes](#notes)
+ - [Best practices](#best-practices)
+ - [Useful Links](#useful-links)
 
 ### Download
 
