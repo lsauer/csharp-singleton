@@ -1,12 +1,43 @@
-version: 1.0.{build}
-install:
-  - ps: nuget restore Singleton.sln
-  - ps: nuget install xunit.runner.console -Version 2.1.0 -OutputDirectory packages
-  
-build_script:
-	- '"C:\Program Files (x86)\MSBuild\12.0\Bin\MSBuild.exe" "Singleton.sln" /verbosity:detailed /p:Configuration=Release /p:DownloadNuGetExe=true /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"'
-	- './packages/xunit.runner.console.2.1.0/tools/xunit.console.exe ./SingletonTest/bin/Release/SingletonTest.dll'
+version: 5.0.0.{build}-beta 
+branches: 
+  only: 
+  - master 
+image: Visual Studio 2015 
+configuration: Release 
+assembly_info: 
+  patch: true 
+  file: '**\AssemblyInfo.*' 
+  assembly_version: '{version}' 
+  assembly_file_version: '{version}' 
+  assembly_informational_version: '{version}' 
+install: 
+- cmd: 
+nuget: 
+  account_feed: true 
+  project_feed: true 
+  disable_publish_on_pr: true 
+before_build: 
+- cmd: nuget restore Singleton.sln
+build: 
+  project: Singleton.sln 
+  publish_nuget: true 
+  publish_nuget_symbols: true 
+  include_nuget_references: true 
+  verbosity: normal 
+after_build: 
+- cmd: >- 
+    7z a Singleton.zip %APPVEYOR_BUILD_FOLDER%\Singleton\bin\Release\*.*
 
+    appveyor PushArtifact Singleton.zip 
+deploy: off 
+notifications: 
+- provider: Email 
+  to: 
+  - [email blocked] 
+  on_build_success: false 
+  on_build_failure: true 
+  on_build_status_changed: false
+  
 skip_commits:
 
   # Regex for matching commit message
