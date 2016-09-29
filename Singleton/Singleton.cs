@@ -2,7 +2,7 @@
 //             Lo Sauer, 2016
 // </copyright>
 // <summary>   A generic, portable and easy to use Singleton pattern library    </summary
-// <language>  C# > 3.0                                                         </language>
+// <language>  C# > 6.0                                                         </language>
 // <version>   2.0.0.4                                                          </version>
 // <author>    Lo Sauer; people credited in the sources                         </author>
 // <project>   https://github.com/lsauer/csharp-singleton                       </project>

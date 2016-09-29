@@ -1,6 +1,11 @@
 version: 1.0.{build}
+install:
+  - ps: nuget restore Singleton.sln
+  - ps: nuget install xunit.runner.console -Version 2.1.0 -OutputDirectory packages
+  
 build_script:
-- '"C:\Program Files (x86)\MSBuild\12.0\Bin\MSBuild.exe" "Singleton.sln" /verbosity:detailed /p:DownloadNuGetExe=true /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"'
+	- '"C:\Program Files (x86)\MSBuild\12.0\Bin\MSBuild.exe" "Singleton.sln" /verbosity:detailed /p:Configuration=Release /p:DownloadNuGetExe=true /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"'
+	- './packages/xunit.runner.console.2.1.0/tools/xunit.console.exe ./SingletonTest/bin/Release/SingletonTest.dll'
 
 skip_commits:
 
