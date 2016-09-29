@@ -1,5 +1,5 @@
 
-<img src="https://googledrive.com/host/0ByqWUM5YoR35ZWhvaXFrZ2pRcmM/singularity-icon-64.png" align="right" height="64" />
+<img src="https://lsauer.github.io/res/github/project/csharp-singleton/singularity-icon-64.png" align="right" height="64" />
 ## Singleton -  A generic, portable and easy to use Singleton pattern implementation     
 ##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for .NET Core / C#
 
@@ -9,8 +9,9 @@
 :------------ | :------------- 
 **website** | <a href="https://github.com/lsauer/csharp-singleton" target="_blank">https://github.com/lsauer/csharp-singleton</a>
 **license** | <a href="http://lsauer.mit-license.org/" target="_blank">MIT license</a>   
-**current** |  [![Build Status](https://travis-ci.org/lsauer/csharp-singleton.svg?branch=master)](https://travis-ci.org/lsauer/csharp-singleton)   
-**package** | <a href="https://www.nuget.org/packages/CSharp.Portable-Singleton/" target="_blank"><img src="https://img.shields.io/nuget/v/CSharp.Portable-Singleton.svg?maxAge=6000"/></a> `PM> Install-Package CSharp.Portable-Singleton`  
+**current** |  [![Build Status](https://travis-ci.org/lsauer/csharp-singleton.svg?branch=master)](https://travis-ci.org/lsauer/csharp-singleton):monkey_face:[![Build Status](https://travis-ci.org/ernestohs/csharp.katas.simple.svg)](https://travis-ci.org/ernestohs/csharp.katas.simple)
+:cloud:[![Build status](https://ci.appveyor.com/api/projects/status/q9aqosp22ufj7wik?svg=true)](https://ci.appveyor.com/project/ernestohs/csharp-katas-simple):bar_chart: [![Coverage Status](https://img.shields.io/coveralls/bfontaine/badges2svg.svg)](https://ci.appveyor.com/project/ernestohs/csharp-katas-simple/build/tests)   
+**package** | <a href="https://www.nuget.org/packages/CSharp.Portable-Singleton/" target="_blank"><img src="https://img.shields.io/nuget/v/CSharp.Pogrtable-Singleton.svg?maxAge=6000"/></a> `PM> Install-Package CSharp.Portable-Singleton`  
 **description** | A generic, portable, documented and easy to use Singleton pattern implementation, to enforce and manage single instances
 **documentation** |  <a href="https://googledrive.com/host/0ByqWUM5YoR35OWFCVHMtVnFiSGM/index.html">complete reference v2.0.0.4</a>
 **suported** | <ul><li><a href="https://en.wikipedia.org/wiki/.NET_Framework#.NET_Core" target="_blank">.NET Core</a></li> <li>.NET Framework 4.5</li> <li>Winows Phone 8.1</li>  <li>Windows 8, 10</li> <li><a href="https://developer.xamarin.com/guides/android/" target="_blank">Xamarin.Android</a></li> <li><a href="https://developer.xamarin.com/guides/ios/" target="_blank">Xamarin.iOS</a></li>  <li>Xamarin.iOS Classic</li><li>XBOX 360 (req. adapations)</li></ul>   
@@ -42,9 +43,13 @@ Full Version | NuGet | Build | NuGet Install
 ------------ | :-------------: | :-------------: | :-------------:
 CSharp.Portable-Singleton | <a href="https://www.nuget.org/packages/CSharp.Portable-Singleton/" target="_blank"><img src="https://img.shields.io/nuget/v/CSharp.Portable-Singleton.svg?maxAge=6000"/></a> | [![Build Status](https://travis-ci.org/lsauer/csharp-singleton.svg?branch=master)](https://travis-ci.org/lsauer/csharp-singleton) | ```PM> Install-Package CSharp.Portable-Singleton```
 
-Social:  [![Twitter](https://img.shields.io/twitter/url/https/github.com/lsauer/csharp-singleton.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D) <a href="https://twitter.com/sauerlo/" target="_blank"><img src="https://googledrive.com/host/0ByqWUM5YoR35NGZiSEs4SXduTGM/gh_twitter_like.png" alt="Twitter Follow" height="18" /></a>
-<a href="https://www.facebook.com/lorenz.lo.sauer/" target="_blank"><img src="https://googledrive.com/host/0ByqWUM5YoR35NGZiSEs4SXduTGM/gh_facebook_like.png" alt="Facebook Like" height="18" /></a>
+Social:  [![Twitter](https://img.shields.io/twitter/url/https/github.com/lsauer/csharp-singleton.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D) <a href="https://twitter.com/sauerlo/" target="_blank"><img src="https://lsauer.github.io/res/github/icons/gh_twitter_like.png" alt="Twitter Follow" height="18" /></a>
+<a href="https://www.facebook.com/lorenz.lo.sauer/" target="_blank"><img src="https://lsauer.github.io/res/github/icons/gh_facebook_like.png" alt="Facebook Like" height="18" /></a>
 
+
+:monkey_face:[![Build Status](https://travis-ci.org/ernestohs/csharp.katas.simple.svg)](https://travis-ci.org/ernestohs/csharp.katas.simple)
+:cloud:[![Build status](https://ci.appveyor.com/api/projects/status/e7o2ga07i68f2kj4?svg=true)](https://ci.appveyor.com/project/lsauer/csharp-singleton/)
+:bar_chart: [![Coverage Status](https://img.shields.io/coveralls/bfontaine/badges2svg.svg)](https://ci.appveyor.com/project/lsauer/csharp-singleton/build/tests)
 
 
 ### Documentation
@@ -416,14 +421,14 @@ Also take a look at <a href="https://github.com/dotnet/corefx/issues/6564" targe
 This library has been tested by the <a href="https://xunit.github.io/docs/comparisons.html" target="_blank"> XUnit Testing Framework</a>. Tests are run with several classes, one of with `AClass` adhering to a straightforward cannonical inheritance schema:        
 
 **Fig 1:**   
-<img src="https://googledrive.com/host/0ByqWUM5YoR35ZWhvaXFrZ2pRcmM/SingletonTest-Class-Diagram.svg"/>
+<img src="https://lsauer.github.io/res/github/project/csharp-singleton/SingletonTest-Class-Diagram.svg"/>
 
 
 ### Bugs [![GitHub issues](https://img.shields.io/github/issues/lsauer/csharp-singleton.svg)](https://github.com/lsauer/csharp-singleton/issues)
 
 Should you be certain that you ran into a bug, please push a new issue [here](https://github.com/lsauer/csharp-singleton/issues). 
 
-<img src="https://googledrive.com/host/0ByqWUM5YoR35SUREUWdZcTRiQ3M/singleton_testsrun.png" target="_blank" />
+<img src="https://lsauer.github.io/res/github/project/csharp-singleton/singleton_testsrun.png" target="_blank" />
 
 
 #### Notes
