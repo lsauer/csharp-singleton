@@ -9,7 +9,7 @@
 :------------ | :------------- 
 **website** | <a href="https://github.com/lsauer/csharp-singleton" target="_blank">https://github.com/lsauer/csharp-singleton</a>
 **license** | <a href="http://lsauer.mit-license.org/" target="_blank">MIT license</a>   
-**current** |  [![Build Status](https://travis-ci.org/lsauer/csharp-singleton.svg?branch=master)](https://travis-ci.org/lsauer/csharp-singleton):monkey_face:[![Build Status](https://travis-ci.org/ernestohs/csharp.katas.simple.svg)](https://travis-ci.org/ernestohs/csharp.katas.simple)
+**current** |  [![Build Status](https://travis-ci.org/lsauer/csharp-singleton.svg?branch=master)](https://travis-ci.org/lsauer/csharp-singleton)
 :cloud:[![Build status](https://ci.appveyor.com/api/projects/status/q9aqosp22ufj7wik?svg=true)](https://ci.appveyor.com/project/ernestohs/csharp-katas-simple):bar_chart: [![Coverage Status](https://img.shields.io/coveralls/bfontaine/badges2svg.svg)](https://ci.appveyor.com/project/ernestohs/csharp-katas-simple/build/tests)   
 **package** | <a href="https://www.nuget.org/packages/CSharp.Portable-Singleton/" target="_blank"><img src="https://img.shields.io/nuget/v/CSharp.Pogrtable-Singleton.svg?maxAge=6000"/></a> `PM> Install-Package CSharp.Portable-Singleton`  
 **description** | A generic, portable, documented and easy to use Singleton pattern implementation, to enforce and manage single instances
