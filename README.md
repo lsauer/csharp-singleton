@@ -9,8 +9,7 @@
 :------------ | :------------- 
 **website** | <a href="https://github.com/lsauer/csharp-singleton" target="_blank">https://github.com/lsauer/csharp-singleton</a>
 **license** | <a href="http://lsauer.mit-license.org/" target="_blank">MIT license</a>   
-**current** |  [![Build Status](https://travis-ci.org/lsauer/csharp-singleton.svg?branch=master)](https://travis-ci.org/lsauer/csharp-singleton)
-:cloud:[![Build status](https://ci.appveyor.com/api/projects/status/q9aqosp22ufj7wik?svg=true)](https://ci.appveyor.com/project/ernestohs/csharp-katas-simple):bar_chart: [![Coverage Status](https://img.shields.io/coveralls/bfontaine/badges2svg.svg)](https://ci.appveyor.com/project/ernestohs/csharp-katas-simple/build/tests)   
+**current** |  [![Build Status](https://travis-ci.org/lsauer/csharp-singleton.svg?branch=master)](https://travis-ci.org/lsauer/csharp-singleton) [![Build status](https://ci.appveyor.com/api/projects/status/q9aqosp22ufj7wik?svg=true)](https://ci.appveyor.com/project/lsauer/csharp-singleton/) [![Coverage Status](https://img.shields.io/coveralls/bfontaine/badges2svg.svg)](https://ci.appveyor.com/project/lsauer/csharp-singleton/build/tests)
 **package** | <a href="https://www.nuget.org/packages/CSharp.Portable-Singleton/" target="_blank"><img src="https://img.shields.io/nuget/v/CSharp.Pogrtable-Singleton.svg?maxAge=6000"/></a> `PM> Install-Package CSharp.Portable-Singleton`  
 **description** | A generic, portable, documented and easy to use Singleton pattern implementation, to enforce and manage single instances
 **documentation** |  <a href="https://googledrive.com/host/0ByqWUM5YoR35OWFCVHMtVnFiSGM/index.html">complete reference v2.0.0.4</a>
@@ -41,15 +40,10 @@
 
 Full Version | NuGet | Build | NuGet Install
 ------------ | :-------------: | :-------------: | :-------------:
-CSharp.Portable-Singleton | <a href="https://www.nuget.org/packages/CSharp.Portable-Singleton/" target="_blank"><img src="https://img.shields.io/nuget/v/CSharp.Portable-Singleton.svg?maxAge=6000"/></a> | [![Build Status](https://travis-ci.org/lsauer/csharp-singleton.svg?branch=master)](https://travis-ci.org/lsauer/csharp-singleton) | ```PM> Install-Package CSharp.Portable-Singleton```
+CSharp.Portable-Singleton | <a href="https://www.nuget.org/packages/CSharp.Portable-Singleton/" target="_blank"><img src="https://img.shields.io/nuget/v/CSharp.Portable-Singleton.svg?maxAge=6000"/></a> |  [![Build Status](https://travis-ci.org/lsauer/csharp-singleton.svg?branch=master)](https://travis-ci.org/lsauer/csharp-singleton) [![Build status](https://ci.appveyor.com/api/projects/status/q9aqosp22ufj7wik?svg=true)](https://ci.appveyor.com/project/lsauer/csharp-singleton/) [![Coverage Status](https://img.shields.io/coveralls/bfontaine/badges2svg.svg)](https://ci.appveyor.com/project/lsauer/csharp-singleton/build/tests) | ```PM> Install-Package CSharp.Portable-Singleton```
 
 Social:  [![Twitter](https://img.shields.io/twitter/url/https/github.com/lsauer/csharp-singleton.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D) <a href="https://twitter.com/sauerlo/" target="_blank"><img src="https://lsauer.github.io/res/github/icons/gh_twitter_like.png" alt="Twitter Follow" height="18" /></a>
-<a href="https://www.facebook.com/lorenz.lo.sauer/" target="_blank"><img src="https://lsauer.github.io/res/github/icons/gh_facebook_like.png" alt="Facebook Like" height="18" /></a>
-
-
-:monkey_face:[![Build Status](https://travis-ci.org/ernestohs/csharp.katas.simple.svg)](https://travis-ci.org/ernestohs/csharp.katas.simple)
-:cloud:[![Build status](https://ci.appveyor.com/api/projects/status/e7o2ga07i68f2kj4?svg=true)](https://ci.appveyor.com/project/lsauer/csharp-singleton/)
-:bar_chart: [![Coverage Status](https://img.shields.io/coveralls/bfontaine/badges2svg.svg)](https://ci.appveyor.com/project/lsauer/csharp-singleton/build/tests)
+<a href="https://www.facebook.com/lorenz.lo.sauer/" target="_blank"><img src="https://lsauer.github.io/res/github/icons/gh_facebook_like.png" alt="Facebook Like" height="18" /></a>  
 
 
 ### Documentation
