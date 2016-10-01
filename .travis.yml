@@ -1,15 +1,30 @@
+sudo: false
+
 language: csharp
-solution: Singleton.sln
+
+solution: "Singleton.sln"
+
+before_script:
+  - git fetch origin master:master
+  - git pull
+  - git log --graph --full-history --all --color --date=short --pretty=format:"%Cred%x09%h %Creset%ad%Cgreen%d %Creset %s %C(bold)(%an)%Creset"
+
 install:
-  - nuget restore Singleton.sln
+  - nuget restore "Singleton.sln"
   - nuget install xunit.runner.console -Version 2.1.0 -OutputDirectory packages
+
 script:
   - mono --version
   - xbuild /p:Configuration=Release Singleton.sln
   - mono ./packages/xunit.runner.console.2.1.0/tools/xunit.console.exe ./SingletonTest/bin/Release/SingletonTest.dll
+
+after_script:
+  - tar czf travis_artifacts.tar.gz /${TRAVIS_BUILD_DIR}
+  
 mono:
   - latest
   - 4.4.2
+
 matrix:
   include:
     - os: linux
@@ -21,3 +36,22 @@ matrix:
       mono: latest
   allow_failures:
     - os: osx
+
+addons:
+  artifacts:
+    paths: 
+      - $(git ls-files -o | tr "\n" ":")
+      - $(ls /var/log/*.log | tr "\n" ":")
+      - $(ls ${TRAVIS_BUILD_DIR} | tr "\n" ":")
+    debug: true
+    
+deploy:
+  provider: releases
+  api_key: "209837541c19ae9d207e5c6516720a8b07ecbcba"
+  file_glob: false
+  file: "travis_artifacts.tar.gz"
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
+    #repo: <lsauer/csharp-singleton>
